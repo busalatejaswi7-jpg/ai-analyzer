@@ -4,7 +4,11 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "*", 
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -25,8 +29,12 @@ app.use("/api/skills", skillRoutes);
 const resumeRoutes = require("./routes/resumeRoutes");
 
 app.use("/api/resume", resumeRoutes);
-mongoose.connect("mongodb://127.0.0.1:27017/placementAI")
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Connected"))
 .catch(err => console.log(err));
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
