@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
     <div className="navbar">
-      <Link className="nav-link" to="/dashboard">Dashboard</Link>
-      <Link className="nav-link" to="/applications">Applications</Link>
-      <Link className="nav-link" to="/skill-gap">Skill Gap</Link>
-      <Link className="nav-link" to="/resume">Resume</Link>
+      <NavLink className={({ isActive }) => `nav-link${isActive ? " active" : ""}`} to="/dashboard">Dashboard</NavLink>
+      <NavLink className={({ isActive }) => `nav-link${isActive ? " active" : ""}`} to="/applications">Applications</NavLink>
+      <NavLink className={({ isActive }) => `nav-link${isActive ? " active" : ""}`} to="/skill-gap">Skill Gap</NavLink>
+      <NavLink className={({ isActive }) => `nav-link${isActive ? " active" : ""}`} to="/resume">Resume</NavLink>
     </div>
   );
 }
