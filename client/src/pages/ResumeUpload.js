@@ -11,27 +11,29 @@ function ResumeUpload() {
 
     try {
       const res = await API.post("/resume/upload", formData);
-      setResult(res.data.message); // or suggestions
+      setResult(res.data.message);
     } catch (err) {
       alert("Upload failed ❌");
     }
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h2>Resume Analyzer 📄</h2>
+    <div className="page">
+      <div className="card center-card">
+        <h2>Resume Analyzer 📄</h2>
 
-      <input
-        type="file"
-        onChange={(e) => setFile(e.target.files[0])}
-      />
+        <div className="form-row">
+          <input
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+        </div>
 
-      <br /><br />
+        <button className="btn" onClick={upload}>Upload</button>
 
-      <button onClick={upload}>Upload</button>
-
-      <h3>Analysis Result:</h3>
-      <p>{result}</p>
+        <h3>Analysis Result:</h3>
+        <p className="result-box">{result}</p>
+      </div>
     </div>
   );
 }

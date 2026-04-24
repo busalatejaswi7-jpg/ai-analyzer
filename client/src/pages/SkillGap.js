@@ -15,26 +15,28 @@ function SkillGap() {
   };
 
   return (
-    <div style= {{ textAlign: "center", marginTop: "50px" }}>
-      <h2>Skill Gap Analyzer </h2>
+    <div className="page">
+      <div className="card center-card">
+        <h2>Skill Gap Analyzer</h2>
 
-      <input
-        placeholder="Enter Role (e.g. Frontend Developer)"
-        value={role}
-        onChange={(e) => setRole(e.target.value)}
-      />
+        <div className="form-row">
+          <input
+            placeholder="Enter Role (e.g. Frontend Developer)"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          />
+        </div>
 
-      <br /><br />
+        <button className="btn" onClick={analyze}>Analyze</button>
 
-      <button onClick={analyze}>Analyze</button>
+        <h3>Missing Skills:</h3>
 
-      <h3>Missing Skills:</h3>
-
-      <ul>
-        {skills.map((skill, index) => (
-          <li key={index}>{skill}</li>
-        ))}
-      </ul>
+        <ul>
+          {skills.map((skill, index) => (
+            <li key={index}>{skill}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
