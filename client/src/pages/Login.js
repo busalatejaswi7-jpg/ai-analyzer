@@ -23,7 +23,7 @@ function Login() {
 
   return (
     <div className="page">
-      <div className="card center-card">
+      <div className="card center-card login-card">
         <h2>Login</h2>
 
         <form onSubmit={handleSubmit}>
