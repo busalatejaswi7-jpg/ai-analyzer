@@ -1,43 +1,75 @@
-import { useState } from "react";
-import API from "../services/api";
-
 function SkillGap() {
-  const [role, setRole] = useState("");
-  const [skills, setSkills] = useState([]);
 
-  const analyze = async () => {
-    try {
-      const res = await API.post("/skills/analyze", { role });
-      setSkills(res.data.missingSkills);
-    } catch (err) {
-      alert("Error analyzing skills ");
-    }
-  };
+  const skills = [
+    "React",
+    "Node.js",
+    "MongoDB",
+    "Docker",
+    "AWS",
+    "System Design"
+  ];
 
   return (
-    <div className="page">
-      <div className="card center-card">
-        <h2>Skill Gap Analyzer</h2>
 
-        <div className="form-row">
-          <input
-            placeholder="Enter Role (e.g. Frontend Developer)"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          />
-        </div>
+    <div className="skill-page">
 
-        <button className="btn" onClick={analyze}>Analyze</button>
+      <div className="skill-header">
 
-        <h3>Missing Skills:</h3>
+        <h1>Skill Gap Analyzer</h1>
+
+        <p>
+          AI-detected missing skills based on
+          your resume and target role.
+        </p>
+
+      </div>
+
+      <div className="skill-grid">
+
+        {
+          skills.map((skill, index) => (
+
+            <div
+              className="skill-card"
+              key={index}
+            >
+
+              <h2>{skill}</h2>
+
+              <p>
+                Recommended to improve your
+                ATS score and job matching.
+              </p>
+
+            </div>
+
+          ))
+        }
+
+      </div>
+
+      <div className="roadmap-card">
+
+        <h2>Suggested Learning Roadmap 🚀</h2>
 
         <ul>
-          {skills.map((skill, index) => (
-            <li key={index}>{skill}</li>
-          ))}
+
+          <li>Learn React Projects</li>
+
+          <li>Build REST APIs with Node.js</li>
+
+          <li>Practice MongoDB CRUD</li>
+
+          <li>Learn Docker Basics</li>
+
+          <li>Study AWS Deployment</li>
+
         </ul>
+
       </div>
+
     </div>
+
   );
 }
 

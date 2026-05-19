@@ -6,7 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoutes";
 import SkillGap from "./pages/SkillGap";
 import ResumeUpload from "./pages/ResumeUpload";
 import Navbar from "./components/Navbar";
-
+import Register from "./pages/Register";
 function App() {
 
   return (
@@ -14,7 +14,10 @@ function App() {
    <Navbar />
       <Routes>
         <Route path="/" element={<Login />} />
-
+<Route
+  path="/register"
+  element={<Register />}
+/>
         <Route
           path="/dashboard"
           element={

@@ -1,93 +1,75 @@
-import { useEffect, useState } from "react";
-import API from "../services/api";
-
 function Applications() {
-  const [apps, setApps] = useState([]);
-  const [form, setForm] = useState({
-    company: "",
-    role: "",
-  });
 
-  useEffect(() => {
-    fetchApps();
-  }, []);
+  const jobs = [
 
-  const fetchApps = async () => {
-    const res = await API.get("/applications");
-    setApps(res.data);
-  };
+    {
+      company: "Google",
+      role: "Frontend Developer",
+      status: "Applied"
+    },
 
-  const addApp = async (e) => {
-    e.preventDefault();
-    console.log(form);
-    await API.post("/applications", form);
-    setForm({ company: "", role: "" });
-    fetchApps();
-  };
+    {
+      company: "Amazon",
+      role: "MERN Stack Intern",
+      status: "Interview"
+    },
 
-  const deleteApp = async (id) => {
-    await API.delete(`/applications/${id}`);
-    fetchApps();
-  };
+    {
+      company: "Microsoft",
+      role: "Software Engineer",
+      status: "Rejected"
+    },
 
-  const updateStatus = async (id, status) => {
-    await API.put(`/applications/${id}`, { status });
-    fetchApps();
-  };
+    {
+      company: "Netflix",
+      role: "React Developer",
+      status: "Shortlisted"
+    }
+
+  ];
 
   return (
-    <div className="page">
-      <div className="card">
-        <h2>Applications</h2>
 
-        <form onSubmit={addApp} className="form-row">
-          <input
-            placeholder="Company"
-            value={form.company}
-            onChange={(e) =>
-              setForm({ ...form, company: e.target.value })
-            }
-          />
+    <div className="applications-page">
 
-          <input
-            placeholder="Role"
-            value={form.role}
-            onChange={(e) =>
-              setForm({ ...form, role: e.target.value })
-            }
-          />
+      <div className="applications-header">
 
-          <button className="btn">Add</button>
-        </form>
+        <h1>Applications Tracker</h1>
 
-        <div className="apps-list">
-          {apps.map((app) => (
-            <div key={app._id} className="app-item">
-              <h4 className="app-meta">{app.company} - {app.role}</h4>
+        <p>
+          Track your job applications and
+          monitor your interview progress.
+        </p>
 
-              <select
-                value={app.status}
-                onChange={(e) =>
-                  updateStatus(app._id, e.target.value)
-                }
-              >
-                <option>Applied</option>
-                <option>Interview</option>
-                <option>Selected</option>
-                <option>Rejected</option>
-              </select>
-
-              <button
-                className="btn btn-danger"
-                onClick={() => deleteApp(app._id)}
-              >
-                Delete
-              </button>
-            </div>
-          ))}
-        </div>
       </div>
+
+      <div className="applications-grid">
+
+        {
+          jobs.map((job, index) => (
+
+            <div
+              className="application-card"
+              key={index}
+            >
+
+              <h2>{job.company}</h2>
+
+              <p>{job.role}</p>
+
+              <span className={`status ${job.status}`}>
+                {job.status}
+              </span>
+
+            </div>
+
+          ))
+        }
+
+      </div>
+
     </div>
+
   );
 }
 

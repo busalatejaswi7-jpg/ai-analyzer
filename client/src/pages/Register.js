@@ -1,32 +1,34 @@
 import { useState } from "react";
 import API from "../services/api";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-function Login() {
+
+function Register() {
+
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
+    name: "",
     email: "",
     password: "",
   });
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     try {
 
-      const res = await API.post("/auth/login", form);
+      await API.post("/auth/register", form);
 
-      localStorage.setItem("token", res.data.token);
+      alert("Registration Successful");
 
-      navigate("/dashboard");
+      navigate("/");
 
     } catch (err) {
 
       console.log(err.response?.data || err.message);
 
-      alert("Login Failed");
+      alert("Registration Failed");
 
     }
   };
@@ -35,48 +37,40 @@ function Login() {
 
     <div className="login-page">
 
-      {/* LEFT SIDE */}
-
       <div className="login-left">
 
-        <h1>AI Resume Analyzer</h1>
+        <h1>Create Account</h1>
 
         <p>
-          Analyze resumes with AI, detect skill gaps,
-          improve ATS scores, and get smart career insights.
+          Start analyzing resumes with AI
+          and unlock smart career insights.
         </p>
 
-        <div className="feature-box">
-
-          <div className="feature-card">
-            ATS Score Analysis
-          </div>
-
-          <div className="feature-card">
-            AI Skill Gap Detection
-          </div>
-
-          <div className="feature-card">
-            Resume Feedback
-          </div>
-
-        </div>
-
       </div>
-
-      {/* RIGHT SIDE */}
 
       <div className="login-right">
 
         <div className="login-card-new">
 
-          <h2>Welcome Back 👋</h2>
+          <h2>Register 🚀</h2>
 
           <form onSubmit={handleSubmit}>
 
             <input
+              type="text"
+              placeholder="Enter Name"
+              value={form.name}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  name: e.target.value,
+                })
+              }
+            />
+
+            <input
               type="email"
-              placeholder="Enter your email"
+              placeholder="Enter Email"
               value={form.email}
               onChange={(e) =>
                 setForm({
@@ -88,7 +82,7 @@ function Login() {
 
             <input
               type="password"
-              placeholder="Enter your password"
+              placeholder="Enter Password"
               value={form.password}
               onChange={(e) =>
                 setForm({
@@ -102,17 +96,10 @@ function Login() {
               type="submit"
               className="login-btn"
             >
-              Login
+              Register
             </button>
 
           </form>
-
-          <p className="register-text">
-            Don’t have an account?
-           <Link to="/register">
-  <span> Register</span>
-</Link>
-          </p>
 
         </div>
 
@@ -122,4 +109,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
